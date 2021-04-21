@@ -35,8 +35,10 @@ def create_all_users_batch():
 
     #  This function can create several users, DBs and permissions associated
     #  with each user
-    file = input('Please type the file name for user creation: ')
-    try:
+
+    from os import path
+    file = input('Please type the filename with users (one per line): ')
+    if path.exists(file) and path.isfile(file):
         with open(file) as inputfile,\
                 open('all_credentials.txt', 'wt') as user_credentials_file:
 
@@ -82,8 +84,8 @@ def create_all_users_batch():
                                 print(f'{login}\n{create_DB_Permission.text}')
                     else:
                         print(f'{createuser.text}')
-    except IOError:
-        print(f'File not found / error loading file: {IOError}')
+    else:
+        print(f'File "{file}" not found or not a regular file.')
 
 
 def create_DB():
